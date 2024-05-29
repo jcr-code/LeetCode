@@ -1,0 +1,62 @@
+class Solution(object):
+    def convert(self, s, numRows):
+        """
+        :type s: str
+        :type numRows: int
+        :rtype: str
+        """
+        add1 = (numRows - 1) * 2
+        if(numRows == 1):
+            add1 = 1
+        add2 = 0 #remainder
+        curr = 0
+        hold = 0
+        hold2 = 0
+        result = ""
+        for i in range(len(s)):
+            if(add2 == 0):
+                if(curr > len(s)-1):
+                    hold += 1
+                    hold2 += 1
+                    curr = hold
+                    add1 -= 2
+                    add2 += 2
+                    result += s[curr]
+                else:
+                    result += s[curr]
+                    curr += add1
+            elif(add1 == 0):
+                curr += add2
+                if(curr > len(s)-1):
+                    hold += 1
+                    hold2 += 1
+                    curr = hold
+                    add1 -= 2
+                    add2 += 2
+                    result += s[curr] 
+                else:
+                    result += s[curr]
+            elif(hold2 % 2 == 1):
+                hold2 += 1
+                curr += add1
+                if(curr > len(s)-1):
+                    hold += 1
+                    hold2 += 1
+                    curr = hold
+                    add1 -= 2
+                    add2 += 2
+                    result += s[curr]
+                else: 
+                    result += s[curr]
+            else:
+                hold2 -= 1
+                curr += add2
+                if(curr > len(s)-1):
+                    hold += 1
+                    curr = hold
+                    add1 -= 2
+                    add2 += 2
+                    result += s[curr] 
+                else:
+                    result += s[curr]
+        return result
