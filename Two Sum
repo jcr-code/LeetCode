@@ -1,0 +1,16 @@
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        #make HASHMAP everytime we seen the data we capture it
+        prevmap = {} 
+
+        for i, n in enumerate(nums):
+            sum = target - n
+            if sum in prevmap:
+                return [prevmap[sum], i]
+            prevmap[n] = i
+        return   
