@@ -1,0 +1,26 @@
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        seen = {} 
+        max_length = 0
+        left_pointer = 0
+        
+        for right_pointer, char in enumerate(s):
+            if char in seen and seen[char] >= left_pointer:
+                left_pointer = seen[char] + 1  # Move left pointer to the position after the last occurrence of char
+                
+            seen[char] = right_pointer  # Update the last occurrence of char
+            print(seen)
+            print('left pointer = ', left_pointer)
+            print('Right pointer = ', right_pointer)
+            max_length = max(max_length, right_pointer - left_pointer + 1)
+            print('Max Lenght :', max_length)
+        return max_length
+    
+    #  sum = target - n
+    #         if sum in prevmap:
+    #             return [prevmap[sum], i]
+    #         prevmap[n] = i
