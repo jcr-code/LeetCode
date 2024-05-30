@@ -1,0 +1,32 @@
+class Solution(object):
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        min = -2**31
+        max = 2**31 - 1
+        minus = None 
+        if x < 0:
+            minus = True
+            x = -x
+        else:
+            minus = False
+        if len(str(x)) == 1:
+            if minus:
+                x = -x
+                return x 
+            else:
+                return x
+        if str(x)[-1] == '0':
+            x = int(str(x)[:-1])
+        reversed_x = int(str(x)[::-1])
+        if minus:
+            reversed_x = -reversed_x
+        if reversed_x > max:
+            return 0
+        elif reversed_x < min:
+            return 0
+        return reversed_x
+
+        
