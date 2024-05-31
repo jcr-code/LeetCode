@@ -1,0 +1,58 @@
+class Solution(object):
+    def myAtoi(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        minus = False
+        result = ""
+        alreadyNum = False
+        alreadySign = False
+        alreadySpace = False
+        if len(s) == 0 :
+            return 0
+        for i in range(len(s)):
+            if not s[i].isdigit() and not alreadyNum:
+                if s[i].isspace():
+                    if alreadyNum or alreadySign:
+                        break
+                    else:
+                        alreadySpace = True
+                        continue
+                if not alreadyNum and len(s) == 1:
+                    return 0
+                elif not alreadyNum and s[i] == "-" and not alreadySign:
+                    minus = True
+                    alreadySign = True
+                elif not alreadyNum and s[i] == "+" and not alreadySign:
+                    alreadySign = True
+                    continue       
+                else:
+                    return 0
+            elif not s[i].isdigit() and alreadyNum:
+                break
+            elif s[i] == '0' and not alreadyNum:
+                result += s[i]
+                alreadyNum = True
+            else:
+                result += s[i]
+                alreadyNum = True
+        if not result.isdigit():
+            return 0
+        elif minus:
+            result = -(int(result))
+            if int(result) < -2**31:
+                result = -2**31
+                return int(result)
+            else:
+                return result
+        else:
+            if int(result) > 2**31 - 1:
+                result = 2**31 - 1
+                return int(result)
+            else:
+                return int(result)
+            
+
+            
+    
