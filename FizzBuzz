@@ -1,0 +1,23 @@
+class Solution(object):
+    def fizzBuzz(self, n):
+        def check(i):
+            if i % 3 == 0 and i % 5 == 0:
+                return "FizzBuzz"
+            elif i % 3 == 0:
+                return "Fizz"
+            elif i % 5 == 0:
+                return "Buzz"
+            else:
+                return str(i)
+        if n == 1:
+            return ["1"]
+        leftP = 1
+        rightP = n
+        result = [0] * n
+        for i in range(n):
+            if leftP > rightP:
+                return result
+            result[leftP-1] = check(leftP)
+            result[rightP-1] = check(rightP)
+            leftP +=1
+            rightP -=1
