@@ -1,0 +1,29 @@
+class Solution(object):
+    def replaceWords(self, dictionary, sentence):
+        """
+        :type dictionary: List[str]
+        :type sentence: str
+        :rtype: str
+        """
+        root_set = set(dictionary)
+        def find_root(word):
+            # Initialize with the word itself (in case no root is found)
+            shortest_root = word
+            
+            # Check every possible prefix of the word
+            for i in range(1, len(word) + 1):
+                prefix = word[:i]
+                if prefix in root_set:
+                    if len(prefix) < len(shortest_root):
+                        shortest_root = prefix
+            
+            return shortest_root
+        
+        # Split the sentence into words
+        words = sentence.split()
+        
+        # Replace each word with its shortest root if possible
+        replaced_words = [find_root(word) for word in words]
+        
+        # Join the words back into a sentence
+        return ' '.join(replaced_words)
