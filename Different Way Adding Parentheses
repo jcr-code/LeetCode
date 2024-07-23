@@ -1,0 +1,25 @@
+class Solution(object):
+    def diffWaysToCompute(self, expression):
+        """
+        :type expression: str
+        :rtype: List[int]
+        """
+        m = {}
+        return self.dfs(expression, m)
+        
+    def dfs(self, expr, m):
+        if expr in m:
+            return m[expr]
+        if expr.isdigit():
+            m[expr] = int(expr)
+            return [int(expr)]
+        ret = []
+        for i, c in enumerate(expr):
+            if c in "+-*":
+                l = self.diffWaysToCompute(expr[:i])
+                r = self.diffWaysToCompute(expr[i+1:])
+                print("left : ", expr[:i], "right : ", expr[i+1:])
+                ret.extend(eval(str(x) + c + str(y)) for x in l for y in r)
+        m[expr] = ret
+        return ret
+
